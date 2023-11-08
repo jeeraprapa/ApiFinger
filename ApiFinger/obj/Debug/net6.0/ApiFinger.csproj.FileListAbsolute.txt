@@ -35,3 +35,5 @@ C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Debug\net6.0\Microsoft.Win32.
 C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Debug\net6.0\System.Drawing.Common.dll
 C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Debug\net6.0\AxInterop.ZKFPEngXControl.dll
+C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Debug\net6.0\Interop.ZKFPEngXControl.dll
