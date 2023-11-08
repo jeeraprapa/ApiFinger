@@ -35,3 +35,5 @@ C:\Users\USER\source\repos\ApiFinger\ApiFinger\obj\Release\net6.0\refint\ApiFing
 C:\Users\USER\source\repos\ApiFinger\ApiFinger\obj\Release\net6.0\ApiFinger.pdb
 C:\Users\USER\source\repos\ApiFinger\ApiFinger\obj\Release\net6.0\ApiFinger.genruntimeconfig.cache
 C:\Users\USER\source\repos\ApiFinger\ApiFinger\obj\Release\net6.0\ref\ApiFinger.dll
+C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Release\net6.0\AxInterop.ZKFPEngXControl.dll
+C:\Users\USER\source\repos\ApiFinger\ApiFinger\bin\Release\net6.0\Interop.ZKFPEngXControl.dll

@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="AxInterop.ZKFPEngXControl">
+      <HintPath>..\..\..\..\Downloads\zkfinger_sdk_v10.0-windows-lite-zk9500\ZKFinger SDK V10.0-Windows-Lite\ActiveX\samples\C#\bin\x86\Release\AxInterop.ZKFPEngXControl.dll</HintPath>
+    </Reference>
     <Reference Include="libzkfpcsharp">
       <HintPath>libzkfpcsharp.dll</HintPath>
     </Reference>

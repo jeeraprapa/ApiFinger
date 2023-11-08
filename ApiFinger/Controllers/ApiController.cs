@@ -2,6 +2,8 @@
 using libzkfpcsharp;
 using System.Drawing;
 using System.Drawing.Imaging;
+using AxZKFPEngXControl;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ApiFinger.Controllers
 {
@@ -33,60 +35,67 @@ namespace ApiFinger.Controllers
         [HttpGet(Name = "GetApi")]
         public ActionResult Index()
         {
-            zkfp2.Terminate();
-            int ret = zkfperrdef.ZKFP_ERR_OK;
-            if ((ret = zkfp2.Init()) == zkfperrdef.ZKFP_ERR_OK)
-            {
-                int nCount = zkfp2.GetDeviceCount();
-                if (IntPtr.Zero == (mDevHandle = zkfp2.OpenDevice(0)))
-                {
-                    return Content("OpenDevice fail");
-                }
-
-                int size = 4;
-                byte[] paramValue = new byte[size];
-                zkfp.Int2ByteArray(1, paramValue);
-                zkfp2.SetParameters(mDevHandle, 102, paramValue, size);
-
-                zkfp2.GetParameters(mDevHandle, 1, paramValue, ref size);
-                zkfp2.ByteArray2Int(paramValue, ref mfpWidth);
-
-                size = 4;
-                zkfp2.GetParameters(mDevHandle, 2, paramValue, ref size);
-                zkfp2.ByteArray2Int(paramValue, ref mfpHeight);
-
-                FPBuffer = new byte[mfpWidth * mfpHeight];
-
-                while (!bIsTimeToDie)
-                {
-                    cbCapTmp = 2048;
-                    int ret2 = zkfp2.AcquireFingerprint(mDevHandle, FPBuffer, CapTmp, ref cbCapTmp);
-                    if (ret2 == zkfp.ZKFP_ERR_OK)
-                    {
-                        bIsTimeToDie = !bIsTimeToDie;
-
-                        int width = mfpWidth;
-                        int height = mfpHeight;
-
-                        Bitmap image = CreateImageFromBuffer(FPBuffer, width, height);
-                        Bitmap grayscaleImage = ConvertToGrayscale(image);
-                        string base64String = ConvertImageToBase64(grayscaleImage);
-
-                        zkfp.Int2ByteArray(1, paramValue);
-                        zkfp2.SetParameters(mDevHandle, 103, paramValue, size);
-
-                        Thread.Sleep(1000);
-
-                        return Ok(base64String);
-                    }
-                }
-
-                return BadRequest("Operation fail");
-            }
-            else
+            try
             {
                 zkfp2.Terminate();
-                return BadRequest("Initialize fail");
+                int ret = zkfperrdef.ZKFP_ERR_OK;
+                if ((ret = zkfp2.Init()) == zkfperrdef.ZKFP_ERR_OK)
+                {
+                    int nCount = zkfp2.GetDeviceCount();
+                    if (IntPtr.Zero == (mDevHandle = zkfp2.OpenDevice(0)))
+                    {
+                        return Content("OpenDevice fail");
+                    }
+
+                    int size = 4;
+                    byte[] paramValue = new byte[size];
+                    zkfp.Int2ByteArray(1, paramValue);
+                    zkfp2.SetParameters(mDevHandle, 102, paramValue, size);
+
+                    zkfp2.GetParameters(mDevHandle, 1, paramValue, ref size);
+                    zkfp2.ByteArray2Int(paramValue, ref mfpWidth);
+
+                    size = 4;
+                    zkfp2.GetParameters(mDevHandle, 2, paramValue, ref size);
+                    zkfp2.ByteArray2Int(paramValue, ref mfpHeight);
+
+                    FPBuffer = new byte[mfpWidth * mfpHeight];
+
+                    while (!bIsTimeToDie)
+                    {
+                        cbCapTmp = 2048;
+                        int ret2 = zkfp2.AcquireFingerprint(mDevHandle, FPBuffer, CapTmp, ref cbCapTmp);
+                        if (ret2 == zkfp.ZKFP_ERR_OK)
+                        {
+                            bIsTimeToDie = !bIsTimeToDie;
+
+                            int width = mfpWidth;
+                            int height = mfpHeight;
+
+                            Bitmap image = CreateImageFromBuffer(FPBuffer, width, height);
+                            Bitmap grayscaleImage = ConvertToGrayscale(image);
+                            string base64String = ConvertImageToBase64(grayscaleImage);
+
+                            zkfp.Int2ByteArray(1, paramValue);
+                            zkfp2.SetParameters(mDevHandle, 103, paramValue, size);
+
+                            Thread.Sleep(1000);
+
+                            return Ok(base64String);
+                        }
+                    }
+
+                    return BadRequest("Operation fail");
+                }
+                else
+                {
+                    zkfp2.Terminate();
+                    return BadRequest("Initialize fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
         }
