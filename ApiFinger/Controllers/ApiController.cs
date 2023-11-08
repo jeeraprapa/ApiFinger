@@ -12,7 +12,6 @@ namespace ApiFinger.Controllers
     public class ApiController : Controller
     {
 
-        private readonly ILogger<ApiController> _logger;
 
 
         IntPtr mDevHandle = IntPtr.Zero;
@@ -25,12 +24,7 @@ namespace ApiFinger.Controllers
         private int mfpWidth = 0;
         private int mfpHeight = 0;
 
-        const int MESSAGE_CAPTURED_OK = 0x0400 + 6;
 
-        public ApiController(ILogger<ApiController> logger)
-        {
-            _logger = logger;
-        }
 
         [HttpGet(Name = "GetApi")]
         public ActionResult Index()
