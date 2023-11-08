@@ -2,8 +2,6 @@
 using libzkfpcsharp;
 using System.Drawing;
 using System.Drawing.Imaging;
-using AxZKFPEngXControl;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ApiFinger.Controllers
 {
